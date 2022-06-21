@@ -1,0 +1,21 @@
+version: '3.7'
+
+services:
+  webserver:
+    container_name: mew
+    build:
+      context: .docker/mew
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8000:80"
+  hardhat:
+    container_name: hardhat_node
+    build:
+      context: .docker/hardhat
+      dockerfile: Dockerfile
+    ports:
+      - "8545:8545"
+    volumes:
+      - ./:/hardhat/
+    command: sh /hardhat/.docker/hardhat/scripts/install.sh
